@@ -1,6 +1,6 @@
 # virtuoso-tree
 
-This is a light-weight library that enables users to efficiently render a tree data structure using React. Built on top of react-virtuoso, Heavily Inspired by react-vtree
+This is a light-weight library that enables users to efficiently render a tree data structure using React. Built on top of react-virtuoso, heavily Inspired by [react-vtree](https://github.com/Lodin/react-vtree)
 
 ## Code, Demos and Documentation coming soon.
 
