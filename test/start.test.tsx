@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Tree } from '../src';
+import { FixedSizeTree } from '../src';
 
 // These tests can be improved in a later updates
 
@@ -8,7 +8,7 @@ import { Tree } from '../src';
 describe('it', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDOM.render(<Tree test="string" />, div);
+    ReactDOM.render(<FixedSizeTree itemSize={20} />, div);
     ReactDOM.unmountComponentAtNode(div);
   });
 });
