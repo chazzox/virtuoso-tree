@@ -25,7 +25,7 @@ const App = () => {
 				<>
 					<h1>Tree demo using reddit comments</h1>
 					<h3>
-						Using post {postData[0].data.children[0].data.id}
+						Using post {postData[0].data.children[0].data.id}{' '}
 						<a href="https://www.reddit.com/r/AskReddit/comments/lj0dby/which_celebrity_got_cancelled_and_you_genuinely/">
 							(click here to redirect)
 						</a>
