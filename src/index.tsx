@@ -8,7 +8,10 @@ interface ListPropTypes {
   style?: React.CSSProperties;
 }
 
-const FixedSizeList: React.FC<ListPropTypes> = ({
+// possible features
+// 1 - reddit style collapsing
+
+export const FixedSizeTree: React.FC<ListPropTypes> = ({
   itemHeight,
   endReached,
   dataGenerator,
@@ -16,6 +19,8 @@ const FixedSizeList: React.FC<ListPropTypes> = ({
 }) => {
   // @ts-ignore
   const [treeState, setTreeState] = React.useState({});
+  // @ts-ignore
+  const [initialised, setIsInitialised] = React.useState({});
 
   // generate initial tree
 
@@ -23,7 +28,9 @@ const FixedSizeList: React.FC<ListPropTypes> = ({
 
   // get the tree items from state
 
-  React.useEffect(() => {}, [dataGenerator]);
+  React.useEffect(() => {
+    // if tree has not been built then run build tree, otherwise just recompute it
+  }, [dataGenerator]);
 
   return (
     <>
@@ -35,5 +42,3 @@ const FixedSizeList: React.FC<ListPropTypes> = ({
     </>
   );
 };
-
-export default FixedSizeList;

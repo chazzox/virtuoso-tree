@@ -2,30 +2,22 @@ import 'react-app-polyfill/ie11';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { FixedSizeNodeData, FixedSizeNodePublicState, FixedSizeTree, TreeWalkerValue } from '../.';
+import { FixedSizeTree } from '../.';
 
 import './index.scss';
-import { NodeComponentProps, TreeWalkerType } from '../dist/Tree';
-
-type TreeNode = Readonly<{
-	children: TreeNode[];
-	id: number;
-	name: string;
-}>;
-
-type TreeData = FixedSizeNodeData &
-	Readonly<{
-		isLeaf: boolean;
-		name: string;
-		nestingLevel: number;
-	}>;
 
 let nodeId = 0;
+
+interface TreeNode {
+	children: TreeNode[];
+	id: string;
+	name: string;
+}
 
 const createNode = (depth: number = 0): TreeNode => {
 	const node: TreeNode = {
 		children: [],
-		id: nodeId,
+		id: `${nodeId}`,
 		name: `test-${nodeId}`
 	};
 
@@ -44,12 +36,7 @@ const createNode = (depth: number = 0): TreeNode => {
 
 const rootNode = Array.from({ length: 10 }, () => createNode());
 
-type NodeMeta = Readonly<{
-	nestingLevel: number;
-	node: TreeNode;
-}>;
-
-const getNodeData = (node: TreeNode, nestingLevel: number): TreeWalkerValue<TreeData, NodeMeta> => ({
+const getNodeData = (node: TreeNode, nestingLevel: number) => ({
 	data: {
 		id: node.id.toString(),
 		isLeaf: node.children.length === 0,
@@ -61,7 +48,7 @@ const getNodeData = (node: TreeNode, nestingLevel: number): TreeWalkerValue<Tree
 	node
 });
 
-function* treeWalker(): ReturnType<TreeWalkerType<TreeData, NodeMeta>> {
+function* treeWalker() {
 	for (let rootNodeIndex = 0; rootNodeIndex < rootNode.length; rootNodeIndex++) {
 		yield getNodeData(rootNode[rootNodeIndex], 0);
 	}
@@ -76,31 +63,6 @@ function* treeWalker(): ReturnType<TreeWalkerType<TreeData, NodeMeta>> {
 		}
 	}
 }
-
-const Node: React.FC<NodeComponentProps<TreeData, FixedSizeNodePublicState<TreeData>>> = ({
-	data: { isLeaf, name, nestingLevel },
-	isOpen,
-	style,
-	setOpen
-}) => (
-	<div
-		style={{
-			...style,
-			alignItems: 'center',
-			display: 'flex',
-			marginLeft: nestingLevel * 30 + (isLeaf ? 48 : 0)
-		}}
-	>
-		{!isLeaf && (
-			<div>
-				<button type="button" onClick={() => setOpen(!isOpen)}>
-					{isOpen ? '-' : '+'}
-				</button>
-			</div>
-		)}
-		<div>{name}</div>
-	</div>
-);
 
 const App = () => {
 	const [postData, setPostData] = React.useState<GeneralPostResponse | []>([]);
@@ -130,7 +92,7 @@ const App = () => {
 							(click here to redirect)
 						</a>
 					</h3>
-					<FixedSizeTree treeWalker={treeWalker} itemSize={40} height={600} width="100%">
+					<FixedSizeTree treeWalker={treeWalker} itemSize={40} width="100%">
 						{Node}
 					</FixedSizeTree>
 				</>
