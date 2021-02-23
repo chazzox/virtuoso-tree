@@ -13,11 +13,12 @@ jobs:
             - uses: bahmutov/npm-install@v1
             - run: yarn build
             - name: Build docs
-            - working-directory: ./example
             - uses: bahmutov/npm-install@v1
-            - run: yarn build
+            - run: |
+                cd example
+                yarn build
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.ACCESS_TOKEN }}
-                  publish_dir: ./dist
+                  publish_dir: ./example/dist
