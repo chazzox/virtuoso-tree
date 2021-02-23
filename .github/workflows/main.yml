@@ -11,11 +11,11 @@ jobs:
         steps:
             - uses: actions/checkout@v2
             - uses: bahmutov/npm-install@v1
-            - run: cd example
+            - run: cd ./example
             - uses: bahmutov/npm-install@v1
             - run: yarn build
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.ACCESS_TOKEN }}
-                  publish_dir: ./example/dist
+                  publish_dir: ./dist
