@@ -1,0 +1,21 @@
+
+name: Deploy docs
+on:
+    push:
+        branches:
+            - main
+jobs:
+    build:
+        name: Build Parcel docs
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v2
+            - uses: bahmutov/npm-install@v1
+            - run: cd example
+            - uses: bahmutov/npm-install@v1
+            - run: yarn build
+            - name: Deploy
+              uses: peaceiris/actions-gh-pages@v3
+              with:
+                  github_token: ${{ secrets.ACCESS_TOKEN }}
+                  publish_dir: ./dist
