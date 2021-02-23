@@ -44,9 +44,6 @@ const createNode = (depth: number = 0): TreeNode => {
 
 const rootNode = Array.from({ length: 10 }, () => createNode());
 
-const defaultTextStyle = { marginLeft: 10 };
-const defaultButtonStyle = { fontFamily: 'Courier New' };
-
 type NodeMeta = Readonly<{
 	nestingLevel: number;
 	node: TreeNode;
@@ -65,7 +62,6 @@ const getNodeData = (node: TreeNode, nestingLevel: number): TreeWalkerValue<Tree
 });
 
 function* treeWalker(): ReturnType<TreeWalkerType<TreeData, NodeMeta>> {
-	console.log(rootNode);
 	for (let rootNodeIndex = 0; rootNodeIndex < rootNode.length; rootNodeIndex++) {
 		yield getNodeData(rootNode[rootNodeIndex], 0);
 	}
@@ -97,18 +93,14 @@ const Node: React.FC<NodeComponentProps<TreeData, FixedSizeNodePublicState<TreeD
 	>
 		{!isLeaf && (
 			<div>
-				<button type="button" onClick={() => setOpen(!isOpen)} style={defaultButtonStyle}>
+				<button type="button" onClick={() => setOpen(!isOpen)}>
 					{isOpen ? '-' : '+'}
 				</button>
 			</div>
 		)}
-		<div style={defaultTextStyle}>{name}</div>
+		<div>{name}</div>
 	</div>
 );
-
-type TreePresenterProps = Readonly<{
-	itemSize: number;
-}>;
 
 const App = () => {
 	const [postData, setPostData] = React.useState<GeneralPostResponse | []>([]);
@@ -121,6 +113,10 @@ const App = () => {
 			.then((json: GeneralPostResponse) => {
 				setPostData(json);
 			});
+
+		const iter = treeWalker();
+		const { value: root } = iter.next();
+		console.log(root);
 	}, []);
 
 	return (
