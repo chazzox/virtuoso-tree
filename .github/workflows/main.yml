@@ -5,20 +5,29 @@ on:
         branches:
             - main
 jobs:
-    build:
-        name: Build Libary
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v2
-            - uses: bahmutov/npm-install@v1
-            - run: yarn build
-            - name: Build docs
-            - uses: bahmutov/npm-install@v1
-            - run: |
-                cd example
-                yarn build
-            - name: Deploy
-              uses: peaceiris/actions-gh-pages@v3
-              with:
-                  github_token: ${{ secrets.ACCESS_TOKEN }}
-                  publish_dir: ./example/dist
+  build-libary:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./
+    steps:
+         - uses: actions/checkout@v2
+         - uses: bahmutov/npm-install@v1
+         - run: yarn build
+
+  
+  build-docs:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: example
+    steps:
+        - uses: bahmutov/npm-install@v1
+        - run: yarn build
+        - name: Deploy
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.ACCESS_TOKEN }}
+            publish_dir: ./dist
