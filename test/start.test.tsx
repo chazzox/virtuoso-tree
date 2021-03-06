@@ -4,11 +4,11 @@ import { FixedSizeTree } from '../src';
 
 // These tests can be improved in a later updates
 
-// checking if the
+// does it crash
 describe('it', () => {
-  it('renders without crashing', () => {
-    const div = document.createElement('div');
-    ReactDOM.render(<FixedSizeTree itemSize={20} />, div);
-    ReactDOM.unmountComponentAtNode(div);
-  });
+	it('renders without crashing', () => {
+		const div = document.createElement('div');
+		ReactDOM.render(<FixedSizeTree itemSize={20} />, div);
+		ReactDOM.unmountComponentAtNode(div);
+	});
 });
