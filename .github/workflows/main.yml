@@ -4,7 +4,7 @@ on:
         branches:
             - main
 jobs:
-    build-libary:
+    build-library:
         runs-on: ubuntu-latest
         defaults:
             run:
@@ -16,7 +16,7 @@ jobs:
             - run: yarn build
 
     build-docs:
-        needs: [build-libary]
+        needs: [build-library]
         runs-on: ubuntu-latest
         defaults:
             run:
