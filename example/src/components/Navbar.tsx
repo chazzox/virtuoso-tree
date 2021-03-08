@@ -1,7 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import ThemeSelector from './ThemeSelector';
+import { ThemeContext } from '../themes';
 
 const NavWrapper = styled.div`
 	background-color: ${props => props.theme.secondaryAccentBackground};
@@ -26,6 +26,7 @@ const NavItem = styled.div`
 	text-align: center;
 	border-radius: 8px;
 	color: ${props => props.theme.secondaryFont};
+	user-select: none;
 	&:hover {
 		font-weight: 600;
 		background-color: ${props => props.theme.primaryFont};
@@ -39,6 +40,7 @@ const NavItem = styled.div`
 `;
 
 const Navbar = () => {
+	const { toggleTheme } = React.useContext(ThemeContext);
 	return (
 		<NavWrapper>
 			<StyledNav exact to="/">
@@ -53,9 +55,8 @@ const Navbar = () => {
 			<StyledNav to="/about">
 				<NavItem>about</NavItem>
 			</StyledNav>
-			<NavItem style={{ cursor: 'pointer' }}>
+			<NavItem style={{ cursor: 'pointer' }} onClick={() => toggleTheme()}>
 				toggle theme
-				<ThemeSelector />
 			</NavItem>
 		</NavWrapper>
 	);

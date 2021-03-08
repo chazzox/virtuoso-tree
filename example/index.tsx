@@ -7,7 +7,7 @@ import Navbar from './src/components/Navbar';
 import Docs from './src/routes/Docs';
 import Demo from './src/routes/Demo';
 
-import { themes } from './src/themes';
+import { ThemeContext, themes } from './src/themes';
 
 const GlobalContainer = createGlobalStyle(props => ({
 	body: {
@@ -26,30 +26,33 @@ const GlobalContainer = createGlobalStyle(props => ({
 }));
 
 const App = () => {
+	const [isDark, setDarkMode] = React.useState<boolean>(true);
 	return (
-		<ThemeProvider theme={themes.dark}>
-			<GlobalContainer />
-			<HashRouter>
-				<Navbar />
-				<Switch>
-					<Route path="/about">
-						<div>About This library</div>
-					</Route>
+		<ThemeContext.Provider value={{ current: isDark, toggleTheme: () => setDarkMode(!isDark) }}>
+			<ThemeProvider theme={themes[isDark ? 'dark' : 'light']}>
+				<GlobalContainer />
+				<HashRouter>
+					<Navbar />
+					<Switch>
+						<Route path="/about">
+							<div>About This library</div>
+						</Route>
 
-					<Route path="/demo">
-						<Demo />
-					</Route>
+						<Route path="/demo">
+							<Demo />
+						</Route>
 
-					<Route path="/docs">
-						<Docs />
-					</Route>
+						<Route path="/docs">
+							<Docs />
+						</Route>
 
-					<Route path="/">
-						<div>test2</div>
-					</Route>
-				</Switch>
-			</HashRouter>
-		</ThemeProvider>
+						<Route path="/">
+							<div>test2</div>
+						</Route>
+					</Switch>
+				</HashRouter>
+			</ThemeProvider>
+		</ThemeContext.Provider>
 	);
 };
 

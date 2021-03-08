@@ -42,3 +42,5 @@ export const themes: { [key in Options]: DefaultTheme } = {
 		buttonTextColor: ''
 	}
 };
+
+export const ThemeContext = React.createContext({ current: true, toggleTheme: () => {} });
