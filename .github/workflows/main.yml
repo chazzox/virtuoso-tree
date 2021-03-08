@@ -14,12 +14,12 @@ jobs:
             - uses: actions/checkout@v2
             - uses: actions/setup-node@v2
 
-            - name: build library
+            - name: Build Library
               run: |
                   yarn install --frozen-lockfile
                   yarn build
 
-            - name: build docs
+            - name: Build Docs
               run: |
                   cd example
                   yarn install --frozen-lockfile
