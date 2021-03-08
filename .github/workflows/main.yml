@@ -4,7 +4,7 @@ on:
         branches:
             - main
 jobs:
-    build-library:
+    build-doc:
         runs-on: ubuntu-latest
         defaults:
             run:
@@ -12,20 +12,19 @@ jobs:
                 working-directory: ./
         steps:
             - uses: actions/checkout@v2
-            - uses: bahmutov/npm-install@v1
-            - run: yarn build
+            - uses: actions/setup-node@v2
 
-    build-docs:
-        needs: [build-library]
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                shell: bash
-                working-directory: example
-        steps:
-            - uses: actions/checkout@v2
-            - uses: bahmutov/npm-install@v1
-            - run: yarn build
+            - name: build library
+              run: |
+                  yarn install --frozen-lockfile
+                  yarn build
+
+            - name: build docs
+              run: |
+                  cd example
+                  yarn install --frozen-lockfile
+                  yarn build
+
             - name: Deploy
               uses: peaceiris/actions-gh-pages@v3
               with:
