@@ -35,7 +35,7 @@ const getNodeData = (node: TreeNode, nestingLevel: number) => ({
 	data: {
 		id: node.id.toString(),
 		isLeaf: node.children.length === 0,
-		isOpenByDefault: true,
+		isOpenByDefault: false,
 		name: node.name,
 		nestingLevel
 	},

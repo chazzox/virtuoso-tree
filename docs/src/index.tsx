@@ -76,6 +76,7 @@ const App = () => {
 			<Button onClick={() => setDarkMode(!isDark)}>Toggle Theme</Button>
 			<Title>Demo</Title>
 			<Demo />
+			<Title>Code</Title>
 			<Codeblock />
 		</ThemeProvider>
 	);
