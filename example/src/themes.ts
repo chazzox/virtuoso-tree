@@ -35,11 +35,11 @@ export const themes: { [key in Options]: DefaultTheme } = {
 		secondaryAccentBackground: 'rgb(208, 193, 153)',
 		tertiaryAccentBackground: 'rgb(175, 58, 3)',
 
-		primaryFont: '',
-		secondaryFont: '',
-		tertiaryFont: '',
+		primaryFont: 'rgb(60, 56, 54)',
+		secondaryFont: 'rgb(157, 0, 6)',
+		tertiaryFont: 'rgb(121, 116, 14)',
 
-		buttonTextColor: ''
+		buttonTextColor: 'rgb(50, 46, 44)'
 	}
 };
 

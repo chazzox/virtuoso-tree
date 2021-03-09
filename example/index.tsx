@@ -27,6 +27,9 @@ const GlobalContainer = createGlobalStyle(props => ({
 
 const App = () => {
 	const [isDark, setDarkMode] = React.useState<boolean>(true);
+
+	React.useEffect(() => {}, []);
+
 	return (
 		<ThemeContext.Provider value={{ current: isDark, toggleTheme: () => setDarkMode(!isDark) }}>
 			<ThemeProvider theme={themes[isDark ? 'dark' : 'light']}>
