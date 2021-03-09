@@ -22,7 +22,9 @@ export const themes: { [key in Options]: DefaultTheme } = {
 		secondaryFont: 'rgb(168, 153, 132)',
 		tertiaryFont: 'rgb(125, 106, 94)',
 
-		buttonTextColor: 'rgb(235, 219, 178)'
+		buttonTextColor: 'rgb(235, 219, 178)',
+
+		errorBackground: 'rgb(251, 73, 52)'
 	},
 	light: {
 		name: 'Light',
@@ -39,7 +41,9 @@ export const themes: { [key in Options]: DefaultTheme } = {
 		secondaryFont: 'rgb(157, 0, 6)',
 		tertiaryFont: 'rgb(121, 116, 14)',
 
-		buttonTextColor: 'rgb(50, 46, 44)'
+		buttonTextColor: 'rgb(50, 46, 44)',
+
+		errorBackground: 'rgb(157, 0, 6)'
 	}
 };
 

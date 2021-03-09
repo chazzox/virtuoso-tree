@@ -19,5 +19,7 @@ declare module 'styled-components' {
 		tertiaryFont: string;
 
 		buttonTextColor: string;
+
+		errorBackground: string;
 	}
 }
