@@ -17,7 +17,7 @@ jobs:
 
             - name: Build Docs
               run: |
-                  cd example
+                  cd site
                   yarn install --frozen-lockfile
                   yarn build
 
@@ -25,4 +25,4 @@ jobs:
               uses: peaceiris/actions-gh-pages@v3
               with:
                   github_token: ${{ secrets.ACCESS_TOKEN }}
-                  publish_dir: ./example/dist
+                  publish_dir: ./site/dist
