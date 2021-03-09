@@ -2,10 +2,13 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
 import { ThemeProvider, createGlobalStyle } from 'styled-components';
+import * as Cookies from 'js-cookie';
 
 import Navbar from './src/components/Navbar';
 import Docs from './src/routes/Docs';
 import Demo from './src/routes/Demo';
+
+import Icon from './src/assets/center.svg';
 
 import { ThemeContext, themes } from './src/themes';
 
@@ -18,7 +21,8 @@ const GlobalContainer = createGlobalStyle(props => ({
 	'*': {
 		fontFamily: 'Roboto, sans-serif',
 		boxSizing: 'border-box',
-		letterSpacing: '0.5pt'
+		letterSpacing: '0.5pt',
+		transition: 'background-color ease 0.5s'
 	},
 	a: {
 		textDecoration: 'none'
@@ -28,10 +32,27 @@ const GlobalContainer = createGlobalStyle(props => ({
 const App = () => {
 	const [isDark, setDarkMode] = React.useState<boolean>(true);
 
-	React.useEffect(() => {}, []);
+	React.useEffect(() => {
+		const ThemeCookie: undefined | boolean = Cookies.getJSON('theme')?.isDark;
+		if (ThemeCookie == undefined) {
+			Cookies.set('theme', { isDark: true });
+		} else {
+			setDarkMode(ThemeCookie);
+		}
+	}, []);
+
+	React.useEffect(() => console.log(isDark), [isDark]);
 
 	return (
-		<ThemeContext.Provider value={{ current: isDark, toggleTheme: () => setDarkMode(!isDark) }}>
+		<ThemeContext.Provider
+			value={{
+				current: isDark,
+				toggleTheme: () => {
+					setDarkMode(!isDark);
+					Cookies.set('theme', { isDark: !isDark });
+				}
+			}}
+		>
 			<ThemeProvider theme={themes[isDark ? 'dark' : 'light']}>
 				<GlobalContainer />
 				<HashRouter>
@@ -51,6 +72,7 @@ const App = () => {
 
 						<Route path="/">
 							<div>test2</div>
+							<img src={Icon} alt="Main front page logo" height={450} />
 						</Route>
 					</Switch>
 				</HashRouter>
