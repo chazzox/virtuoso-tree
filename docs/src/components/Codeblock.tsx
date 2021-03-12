@@ -8,13 +8,13 @@ const StyledHighlight = styled(Highlight)`
 	overflow-y: scroll;
 `;
 
-const Codeblock = () => {
+const Codeblock: React.FC<{ url: string }> = ({ url }) => {
 	const [fileSrc, setFileSrc] = React.useState('');
 
 	React.useEffect(() => {
-		fetch('https://raw.githubusercontent.com/chazzox/virtuoso-tree/main/docs/src/components/Demo.tsx')
-			.then(res => res.text())
-			.then(body => setFileSrc(body));
+		fetch(url)
+			.then((res) => res.text())
+			.then((body) => setFileSrc(body));
 	}, []);
 
 	return <StyledHighlight language="javascript">{fileSrc}</StyledHighlight>;

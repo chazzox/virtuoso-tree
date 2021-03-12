@@ -9,7 +9,7 @@ import Codeblock from './components/Codeblock';
 
 import { themes } from './themes';
 
-const GlobalContainer = createGlobalStyle(props => ({
+const GlobalContainer = createGlobalStyle((props) => ({
 	'body, html': {
 		margin: 0,
 		padding: 0,
@@ -27,8 +27,8 @@ const GlobalContainer = createGlobalStyle(props => ({
 }));
 
 const Warning = styled.div`
-	background-color: ${props => props.theme.errorBackground};
-	color: ${props => props.theme.buttonTextColor};
+	background-color: ${(props) => props.theme.errorBackground};
+	color: ${(props) => props.theme.buttonTextColor};
 	width: 45%;
 	text-align: center;
 	border-radius: 8px;
@@ -37,13 +37,13 @@ const Warning = styled.div`
 `;
 
 const Title = styled.h1`
-	color: ${props => props.theme.tertiaryFont};
+	color: ${(props) => props.theme.tertiaryFont};
 	margin-left: 40px;
 `;
 
 const Button = styled.div`
-	background-color: ${props => props.theme.primaryAccentBackground};
-	color: ${props => props.theme.buttonTextColor};
+	background-color: ${(props) => props.theme.primaryAccentBackground};
+	color: ${(props) => props.theme.buttonTextColor};
 	user-select: none;
 	padding: 8px;
 	width: fit-content;
@@ -95,13 +95,13 @@ const App = () => {
 					<Title>Demo (Using new lib)</Title>
 					<Demo2 />
 					<Title>Code</Title>
-					<Codeblock />
+					<Codeblock url="https://raw.githubusercontent.com/chazzox/virtuoso-tree/main/docs/src/components/Demo.tsx" />
 				</DemoWrapper>
 				<DemoWrapper>
 					<Title>Demo (Using React-vtree)</Title>
 					<Demo />
 					<Title>Code</Title>
-					<Codeblock />
+					<Codeblock url="https://github.com/chazzox/virtuoso-tree/blob/main/src/AlternativeTree.tsx" />
 				</DemoWrapper>
 			</DemoContainer>
 		</ThemeProvider>
