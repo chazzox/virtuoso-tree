@@ -4,6 +4,7 @@ import styled, { createGlobalStyle, ThemeProvider } from 'styled-components';
 import * as Cookies from 'js-cookie';
 
 import Demo from './components/Demo';
+import Demo2 from './components/Demo2';
 import Codeblock from './components/Codeblock';
 
 import { themes } from './themes';
@@ -50,6 +51,18 @@ const Button = styled.div`
 	margin: 10px auto;
 `;
 
+const DemoContainer = styled.div`
+	display: flex;
+	width: 100%;
+`;
+
+const DemoWrapper = styled.div`
+	flex: 1;
+	padding: 16px;
+`;
+
+const Header = styled.div``;
+
 const App = () => {
 	const [isDark, setDarkMode] = React.useState<boolean>(true);
 
@@ -68,16 +81,29 @@ const App = () => {
 
 	return (
 		<ThemeProvider theme={themes[isDark ? 'dark' : 'light']}>
-			<GlobalContainer />
-			<Warning>
-				This site and library is in active development (unusable in current form), and docs are unwritten. In the
-				future, this site will be replaced with a docusaurus page.
-			</Warning>
-			<Button onClick={() => setDarkMode(!isDark)}>Toggle Theme</Button>
-			<Title>Demo</Title>
-			<Demo />
-			<Title>Code</Title>
-			<Codeblock />
+			<Header>
+				<GlobalContainer />
+				<Warning>
+					This site and library is in active development (unusable in current form), and docs are unwritten. In the
+					future, this site will be replaced with a docusaurus page.
+				</Warning>
+				<Button onClick={() => setDarkMode(!isDark)}>Toggle Theme</Button>
+			</Header>
+
+			<DemoContainer>
+				<DemoWrapper>
+					<Title>Demo (Using new lib)</Title>
+					<Demo2 />
+					<Title>Code</Title>
+					<Codeblock />
+				</DemoWrapper>
+				<DemoWrapper>
+					<Title>Demo (Using React-vtree)</Title>
+					<Demo />
+					<Title>Code</Title>
+					<Codeblock />
+				</DemoWrapper>
+			</DemoContainer>
 		</ThemeProvider>
 	);
 };

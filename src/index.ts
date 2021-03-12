@@ -1,2 +1,3 @@
-export {Row, Tree} from './Tree';
-export type { TreeWalker, TreeWalkerValue} from './Tree';
+export { Row, Tree } from './Tree';
+export { AlternativeTree } from './AlternativeTree';
+export { TreeWalker, TreeWalkerValue } from './Tree';

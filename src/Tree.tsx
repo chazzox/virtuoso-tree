@@ -447,7 +447,7 @@ const updateExistingTree = <
 
 				let count = 0;
 
-				update = record => {
+				update = (record) => {
 					// We have to consider only currently visible subtree nodes BEFORE
 					// their visibility is updated. Otherwise we will have incorrect
 					// number of items to remove: we cannot remove elements that are not
@@ -579,14 +579,13 @@ export class Tree<
 
 		this.getRecordData = this.getRecordData.bind(this);
 
-		/* eslint-disable react/no-unused-state,@typescript-eslint/consistent-type-assertions */
+		/* eslint-disable react/no-unused-state, @typescript-eslint/consistent-type-assertions */
 		this.state = {
 			list: createRef(),
 			recomputeTree: this.recomputeTree.bind(this),
 			setState: this.setState.bind(this),
 			computeTree
 		} as TState;
-		/* eslint-enable react/no-unused-state,@typescript-eslint/consistent-type-assertions */
 	}
 
 	protected getItemData(): TypedListChildComponentData<TData, TNodePublicState> {
@@ -602,14 +601,13 @@ export class Tree<
 
 	protected getRecordData(index: number): TNodePublicState {
 		const { order, records } = this.state;
-
 		return records.get(order![index])!.public;
 	}
 
 	public recomputeTree(state: OpennessState<TData, TNodePublicState>): Promise<void> {
-		return new Promise(resolve => {
+		return new Promise((resolve) => {
 			this.setState<never>(
-				prevState =>
+				(prevState) =>
 					prevState.computeTree(this.props, prevState, {
 						opennessState: state
 					}),
@@ -632,6 +630,10 @@ export class Tree<
 		const { children, listRef, placeholder, treeWalker, rowComponent, ...rest } = this.props;
 
 		const { attachRefs, order } = this.state;
+
+		console.log(this.getItemData());
+		console.log(this.getItemData().getRecordData(0));
+		console.log(order);
 
 		return placeholder && order!.length === 0 ? (
 			placeholder
