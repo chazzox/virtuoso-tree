@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FixedSizeTree } from '../../../dist';
+import { Tree } from '../../../dist';
 
 interface TreeNode {
 	children: TreeNode[];
@@ -83,9 +83,9 @@ const Node: React.FC = ({ data: { isLeaf, name, nestingLevel }, isOpen, style, s
 const Demo = () => {
 	return (
 		// @ts-expect-error
-		<FixedSizeTree height={500} treeWalker={treeWalker} itemSize={40} width="100%">
+		<Tree height={500} treeWalker={treeWalker} itemSize={40} width="100%">
 			{Node}
-		</FixedSizeTree>
+		</Tree>
 	);
 };
 export default Demo;

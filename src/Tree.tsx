@@ -11,9 +11,34 @@ import React, {
 	RefCallback,
 	RefObject
 } from 'react';
+import { FixedSizeList, FixedSizeListProps } from 'react-window';
 import mergeRefs from 'react-merge-refs';
-import { Align, FixedSizeList, ListChildComponentProps, ListProps, VariableSizeList } from 'react-window';
-import { DefaultTreeProps, DefaultTreeState, noop, RequestIdleCallbackDeadline } from './utils';
+import { Align, ListChildComponentProps, ListProps, VariableSizeList } from 'react-window';
+import {
+	DefaultTreeProps,
+	DefaultTreeState,
+	noop,
+	RequestIdleCallbackDeadline,
+	createBasicRecord,
+	getIdByIndex
+} from './utils';
+
+export type FixedSizeNodeData = NodeData;
+
+export type FixedSizeNodePublicState<TData extends FixedSizeNodeData> = NodePublicState<TData>;
+
+export type FixedSizeTreeProps<TData extends FixedSizeNodeData> = TreeProps<
+	TData,
+	FixedSizeNodePublicState<TData>,
+	FixedSizeList
+> &
+	Readonly<Pick<FixedSizeListProps, 'itemSize'>>;
+
+export type FixedSizeTreeState<TData extends FixedSizeNodeData> = TreeState<
+	TData,
+	FixedSizeNodePublicState<TData>,
+	FixedSizeList
+>;
 
 export type NodeData = Readonly<{
 	/**
@@ -504,7 +529,27 @@ export const createTreeComputer = <
 ): TreeComputer<TData, TNodePublicState, TProps, TState> => (props, state, options) =>
 	options.refresh ? generateNewTree(creatorOptions, props, state) : updateExistingTree(state, options);
 
-class Tree<
+const computeTree = createTreeComputer<
+	FixedSizeNodeData,
+	FixedSizeNodePublicState<FixedSizeNodeData>,
+	FixedSizeTreeProps<FixedSizeNodeData>,
+	FixedSizeTreeState<FixedSizeNodeData>
+>({
+	createRecord: (data, { recomputeTree }, parent, previousRecord) =>
+		createBasicRecord(
+			{
+				data,
+				isOpen: previousRecord ? previousRecord.public.isOpen : data.isOpenByDefault,
+				setOpen: (state): Promise<void> =>
+					recomputeTree({
+						[data.id]: state
+					})
+			},
+			parent
+		)
+});
+
+export class Tree<
 	TData extends NodeData,
 	TNodePublicState extends NodePublicState<TData>,
 	TProps extends TreeProps<TData, TNodePublicState, TListComponent>,
@@ -538,7 +583,8 @@ class Tree<
 		this.state = {
 			list: createRef(),
 			recomputeTree: this.recomputeTree.bind(this),
-			setState: this.setState.bind(this)
+			setState: this.setState.bind(this),
+			computeTree
 		} as TState;
 		/* eslint-enable react/no-unused-state,@typescript-eslint/consistent-type-assertions */
 	}
@@ -580,6 +626,28 @@ class Tree<
 	public scrollToItem(id: string, align?: Align): void {
 		// eslint-disable-next-line react/destructuring-assignment
 		this.state.list.current?.scrollToItem(this.state.order!.indexOf(id), align);
+	}
+
+	public render(): ReactNode {
+		const { children, listRef, placeholder, treeWalker, rowComponent, ...rest } = this.props;
+
+		const { attachRefs, order } = this.state;
+
+		return placeholder && order!.length === 0 ? (
+			placeholder
+		) : (
+			<FixedSizeList
+				{...rest}
+				itemCount={order!.length}
+				itemData={this.getItemData()}
+				// eslint-disable-next-line @typescript-eslint/unbound-method
+				itemKey={getIdByIndex}
+				// @ts-expect-error
+				ref={attachRefs}
+			>
+				{rowComponent!}
+			</FixedSizeList>
+		);
 	}
 }
 
