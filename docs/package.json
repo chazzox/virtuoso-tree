@@ -1,8 +1,7 @@
 {
-	"name": "example",
-	"version": "1.0.0",
-	"main": "index.js",
-	"license": "MIT",
+	"name": "DOCS",
+	"version": "0.0.1", 
+	"license": "GPL v3.0",
 	"scripts": {
 		"start": "parcel index.html",
 		"build": "parcel build index.html --public-url ./"
