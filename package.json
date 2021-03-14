@@ -11,6 +11,16 @@
 	"license": "MIT",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
+	"keywords": [
+		"virtualisation",
+		"virtualized",
+		"react",
+		"reactjs",
+		"virtual",
+		"endless",
+		"tree",
+		"infinite"
+	],
 	"files": [
 		"dist",
 		"src"
@@ -35,12 +45,6 @@
 		"hooks": {
 			"pre-commit": "tsdx lint"
 		}
-	},
-	"prettier": {
-		"printWidth": 80,
-		"semi": true,
-		"singleQuote": true,
-		"trailingComma": "es5"
 	},
 	"module": "dist/mylib.esm.js",
 	"size-limit": [
