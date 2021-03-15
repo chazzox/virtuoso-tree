@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Highlight from 'react-highlight.js';
+import Highlight from 'react-highlight';
 
 const StyledHighlight = styled(Highlight)`
 	margin: 40px;
@@ -17,7 +17,7 @@ const Codeblock: React.FC<{ url: string }> = ({ url }) => {
 			.then((body) => setFileSrc(body));
 	}, []);
 
-	return <StyledHighlight language="javascript">{fileSrc}</StyledHighlight>;
+	return <StyledHighlight className="javascript">{fileSrc}</StyledHighlight>;
 };
 
 export default Codeblock;

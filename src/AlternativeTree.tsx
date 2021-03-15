@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import * as React from 'react';
 import { Virtuoso } from 'react-virtuoso';
 
 /* TODO:
@@ -11,16 +11,23 @@ import { Virtuoso } from 'react-virtuoso';
 
 interface AltTreeComponentProps {
 	itemData: any[];
+	/**
+	 * If you can guarantee the height of all elements then set this variable, it will increase performance as virtuoso tree will not have to measure the content
+	 */
 	itemHeight?: number;
+	/**
+	 * Enables chunking by n number of pixels
+	 */
 	overscan?: number;
 }
 
-export const AlternativeTree: React.FC<AltTreeComponentProps> = ({ itemHeight }) => {
+export const AlternativeTree: React.FC<AltTreeComponentProps> = ({ itemHeight, overscan }) => {
 	const list = React.useRef();
 	const reComputeTree = (newState) => {};
 	const computeTree = () => {};
 
 	const getItemData = () => {};
 
-	return <Virtuoso fixedItemHeight={itemHeight} />;
+	return <>Tree</>;
+	// return <Virtuoso fixedItemHeight={itemHeight} overscan={overscan} />;
 };

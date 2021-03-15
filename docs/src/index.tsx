@@ -101,7 +101,7 @@ const App = () => {
 					<Title>Demo (Using React-vtree)</Title>
 					<Demo />
 					<Title>Code</Title>
-					<Codeblock url="https://github.com/chazzox/virtuoso-tree/blob/main/src/AlternativeTree.tsx" />
+					<Codeblock url="https://raw.githubusercontent.com/chazzox/virtuoso-tree/main/docs/src/components/Demo2.tsx" />
 				</DemoWrapper>
 			</DemoContainer>
 		</ThemeProvider>

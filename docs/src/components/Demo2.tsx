@@ -4,7 +4,7 @@ import { AlternativeTree } from '../../../dist';
 const Demo2 = () => {
 	return (
 		<>
-			<AlternativeTree />
+			<AlternativeTree itemHeight={3} itemData={[]} />
 		</>
 	);
 };
