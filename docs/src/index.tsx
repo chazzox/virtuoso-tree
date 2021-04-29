@@ -54,6 +54,7 @@ const Button = styled.div`
 const DemoContainer = styled.div`
 	display: flex;
 	width: 100%;
+	flex-wrap: wrap;
 `;
 
 const DemoWrapper = styled.div`
@@ -62,6 +63,63 @@ const DemoWrapper = styled.div`
 `;
 
 const Header = styled.div``;
+interface TreeNode {
+	children: TreeNode[];
+	id: string;
+	name: string;
+}
+
+let nodeId = 0;
+
+const createNode = (depth: number = 0): TreeNode => {
+	const node: TreeNode = {
+		children: [],
+		id: `${nodeId}`,
+		name: `test-${nodeId}`
+	};
+
+	nodeId += 1;
+
+	if (depth === 3) {
+		return node;
+	}
+
+	for (let i = 0; i < 10; i++) {
+		node.children.push(createNode(depth + 1));
+	}
+
+	return node;
+};
+
+const rootNode = Array.from({ length: 10 }, () => createNode());
+
+const getNodeData = (node: TreeNode, nestingLevel: number) => ({
+	data: {
+		id: node.id.toString(),
+		isLeaf: node.children.length === 0,
+		isOpenByDefault: false,
+		name: node.name,
+		nestingLevel
+	},
+	nestingLevel,
+	node
+});
+
+function* treeWalker() {
+	for (let rootNodeIndex = 0; rootNodeIndex < rootNode.length; rootNodeIndex++) {
+		yield getNodeData(rootNode[rootNodeIndex], 0);
+	}
+
+	while (true) {
+		// @ts-expect-error
+		const parentMeta = yield;
+
+		// eslint-disable-next-line @typescript-eslint/prefer-for-of
+		for (let i = 0; i < parentMeta.node.children.length; i++) {
+			yield getNodeData(parentMeta.node.children[i], parentMeta.nestingLevel + 1);
+		}
+	}
+}
 
 const App = () => {
 	const [isDark, setDarkMode] = React.useState<boolean>(true);
@@ -93,13 +151,13 @@ const App = () => {
 			<DemoContainer>
 				<DemoWrapper>
 					<Title>Demo (Using new lib)</Title>
-					<Demo2 />
+					<Demo2 treeWalker={treeWalker} />
 					<Title>Code</Title>
 					<Codeblock url="https://raw.githubusercontent.com/chazzox/virtuoso-tree/main/docs/src/components/Demo.tsx" />
 				</DemoWrapper>
 				<DemoWrapper>
 					<Title>Demo (Using React-vtree)</Title>
-					<Demo />
+					<Demo treeWalker={treeWalker} />
 					<Title>Code</Title>
 					<Codeblock url="https://raw.githubusercontent.com/chazzox/virtuoso-tree/main/docs/src/components/Demo2.tsx" />
 				</DemoWrapper>

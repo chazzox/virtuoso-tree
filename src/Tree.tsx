@@ -216,9 +216,7 @@ const generateNewTree = <
 	{ buildingTaskTimeout, placeholder, async = false, treeWalker }: TProps,
 	state: TState
 ): ReturnType<TreeComputer<TData, TNodePublicState, TProps, TState>> => {
-	const shouldPreservePreviousState =
-		// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-		async && state.records !== undefined;
+	const shouldPreservePreviousState = async && state.records !== undefined;
 	const { records: previousRecords } = state;
 
 	const order: string[] = [];
@@ -560,20 +558,6 @@ export class Tree<
 		rowComponent: Row
 	};
 
-	public static getDerivedStateFromProps(
-		props: DefaultTreeProps,
-		state: DefaultTreeState
-	): Partial<DefaultTreeState> | null {
-		const { listRef = null, treeWalker } = props;
-		const { computeTree, list, order, treeWalker: oldTreeWalker } = state;
-
-		return {
-			attachRefs: mergeRefs([list, listRef]),
-			...(treeWalker !== oldTreeWalker || !order ? computeTree(props, state, { refresh: true }) : null),
-			treeWalker
-		};
-	}
-
 	public constructor(props: TProps, context: any) {
 		super(props, context);
 
@@ -586,6 +570,20 @@ export class Tree<
 			setState: this.setState.bind(this),
 			computeTree
 		} as TState;
+	}
+
+	public static getDerivedStateFromProps(
+		props: DefaultTreeProps,
+		state: DefaultTreeState
+	): Partial<DefaultTreeState> | null {
+		const { listRef = null, treeWalker } = props;
+		const { computeTree, list, order, treeWalker: oldTreeWalker } = state;
+
+		return {
+			attachRefs: mergeRefs([list, listRef]),
+			...(treeWalker !== oldTreeWalker || !order ? computeTree(props, state, { refresh: true }) : null),
+			treeWalker
+		};
 	}
 
 	protected getItemData(): TypedListChildComponentData<TData, TNodePublicState> {
@@ -617,12 +615,10 @@ export class Tree<
 	}
 
 	public scrollTo(scrollOffset: number): void {
-		// eslint-disable-next-line react/destructuring-assignment
 		this.state.list.current?.scrollTo(scrollOffset);
 	}
 
 	public scrollToItem(id: string, align?: Align): void {
-		// eslint-disable-next-line react/destructuring-assignment
 		this.state.list.current?.scrollToItem(this.state.order!.indexOf(id), align);
 	}
 
@@ -631,9 +627,8 @@ export class Tree<
 
 		const { attachRefs, order } = this.state;
 
-		console.log(this.getItemData());
-		console.log(this.getItemData().getRecordData(0));
-		console.log(order);
+		console.log(this.state);
+		console.log(this.props);
 
 		return placeholder && order!.length === 0 ? (
 			placeholder
