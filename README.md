@@ -1,4 +1,4 @@
-# virtuoso-tree
+<div align="center"><h1>virtuoso-tree</h1></div>
 
 This is a light-weight library that enables users to efficiently render a tree data structure using React. Built on top of [react-virtuoso](https://github.com/petyosi/react-virtuoso), heavily Inspired by [react-vtree](https://github.com/Lodin/react-vtree)
 
