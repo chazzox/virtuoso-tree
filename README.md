@@ -10,4 +10,4 @@ This is a light-weight library that enables users to efficiently render a tree d
 - lacks documentation
 
 ## TODO:
-- reverse engineer and rewrite the original code of [react-vtree](https://github.com/Lodin/react-vtree)
+- [ ] reverse engineer and rewrite the original code of [react-vtree](https://github.com/Lodin/react-vtree)
