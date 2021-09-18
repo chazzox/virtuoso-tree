@@ -257,7 +257,6 @@ const generateNewTree = <
 		while (currentRecord !== null) {
 			if (!hasTime(deadline!)) {
 				requestIdleCallback(task, requestIdleCallbackOptions);
-
 				return;
 			}
 
@@ -278,12 +277,7 @@ const generateNewTree = <
 
 						currentRecord.visited = currentRecord.child !== null;
 
-						currentRecord =
-							currentRecord.child !== null
-								? currentRecord.child
-								: currentRecord.sibling !== null
-								? currentRecord.sibling
-								: currentRecord.parent;
+						currentRecord = currentRecord.child ?? currentRecord.sibling ?? currentRecord.parent;
 					}
 
 					tempRecord = currentRecord;
@@ -626,9 +620,6 @@ export class Tree<
 		const { children, listRef, placeholder, treeWalker, rowComponent, ...rest } = this.props;
 
 		const { attachRefs, order } = this.state;
-
-		console.log(this.state);
-		console.log(this.props);
 
 		return placeholder && order!.length === 0 ? (
 			placeholder
