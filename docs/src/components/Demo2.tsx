@@ -4,7 +4,7 @@ import { AlternativeTree } from '../../../dist';
 const Demo2: React.FC<{ treeWalker: any }> = ({ treeWalker }) => {
 	return (
 		<>
-			<AlternativeTree treeWalker={treeWalker} itemComponent={Item} />
+			<AlternativeTree treeWalker={treeWalker} itemComponent={Item} placeholder={<>placeholder</>} />
 		</>
 	);
 };
